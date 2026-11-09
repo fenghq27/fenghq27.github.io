@@ -7,16 +7,27 @@
 <title>Books &amp; movies · Sophie’s World</title>
 <link rel="icon" href="assets/stamp.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/style.css">
-<link rel="stylesheet" href="assets/forms.css">
-<script defer src="data/shelf.js"></script>
-<script defer src="assets/site.js"></script>
+<link rel="stylesheet" href="assets/forms.css?v=sample-spread">
+<script defer src="data/shelf.js?v=sample-spread"></script>
+<script defer src="assets/site.js?v=sample-spread"></script>
 </head>
 <body data-page="shelf">
 <a class="skip" href="#main">Skip to content</a>
 <header class="masthead"><div class="masthead-inner"><a class="wordmark" href="index.html"><span aria-hidden="true">✿</span> Sophie’s World</a><nav aria-label="Main navigation"><a href="index.html">Index</a><a href="travel.html">Travel</a><a href="cooking.html">Kitchen</a><a href="shelf.html" aria-current="page">Library</a></nav></div></header>
 <main id="main">
-<header class="heading"><svg class="section-art" viewBox="0 0 360 160" aria-hidden="true"><path fill="#b5a98a" d="M176 18l153 16-28 100-153-26Z"/><path d="M122 136l29-107 50 82 42-94 45 90 59-51" fill="none" stroke="#28261f" stroke-width="8"/><path class="red-thread" d="M13 68C88 18 111 142 221 127S290 84 355 125"/><circle cx="221" cy="127" r="4" fill="#903e35"/></svg><p class="eyebrow">03 / THE LIBRARY</p><h1>Books &amp; movies</h1><p>A place for the stories I’m saving and the ones that stayed with me.</p></header>
-<div class="shelf-controls"><div id="medium-filters" class="filters" aria-label="Filter by medium"></div><div id="status-filters" class="filters" aria-label="Filter by status"></div></div><div id="media" class="catalog"></div>
+<header class="heading"><svg class="section-art" viewBox="0 0 300 175" aria-hidden="true">
+      <path d="M34 48Q95 26 150 61Q201 29 265 45L264 138Q207 120 150 152Q89 122 37 140Z" fill="#a5a782" stroke="#595b47" stroke-width="2"/>
+      <path d="M43 42Q100 23 150 59Q202 25 256 40L255 128Q203 114 150 145Q92 116 46 131Z" fill="#f4e3be" stroke="#77634c" stroke-width="2"/>
+      <path d="M150 60v84M63 64q41-8 70 11m-70 5q41-8 70 11m-70 6q41-8 70 11m36-31q32-18 69-15m-69 30q32-18 69-15m-69 30q32-18 69-15" fill="none" stroke="#9c8061" stroke-width="1.5" opacity=".7"/>
+      <path d="M223 36l-1 48-8-7-7 10 1-48" fill="#b36e61"/>
+    </svg><p class="eyebrow">03 / THE LIBRARY</p><h1>Books &amp; movies</h1><p>A place for the stories I’m saving and the ones that stayed with me.</p></header>
+<div id="status-filters" class="filters" role="group" aria-label="Filter by status"></div>
+<div class="library-spread">
+  <section aria-labelledby="film-heading"><h2 id="film-heading">The film roll</h2><div id="film-roll"></div></section>
+  <section aria-labelledby="book-heading"><h2 id="book-heading">The open book</h2><div id="book-spread" aria-live="polite"></div>
+    <div class="page-turns"><button id="previous-spread" type="button">← Previous</button><span id="page-count"></span><button id="next-spread" type="button">Next →</button></div>
+  </section>
+</div>
 <noscript><p>Enable JavaScript to explore the collection.</p></noscript>
 </main>
 <footer><span>✿ SOPHIE’S WORLD</span><span>Little things worth keeping.</span></footer>

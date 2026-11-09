@@ -7,20 +7,31 @@
 <title>Travel map · Sophie’s World</title>
 <link rel="icon" href="assets/stamp.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/style.css">
-<link rel="stylesheet" href="assets/forms.css">
-<script defer src="data/travel.js"></script>
-<script defer src="assets/site.js"></script>
+<link rel="stylesheet" href="assets/forms.css?v=globe-pins">
+<script defer src="data/travel.js?v=globe-pins"></script>
+<script defer src="assets/site.js?v=globe-pins"></script>
 </head>
 <body data-page="travel">
 <a class="skip" href="#main">Skip to content</a>
 <header class="masthead"><div class="masthead-inner"><a class="wordmark" href="index.html"><span aria-hidden="true">✿</span> Sophie’s World</a><nav aria-label="Main navigation"><a href="index.html">Index</a><a href="travel.html" aria-current="page">Travel</a><a href="cooking.html">Kitchen</a><a href="shelf.html">Library</a></nav></div></header>
 <main id="main">
-<header class="heading"><svg class="section-art" viewBox="0 0 360 160" aria-hidden="true"><path fill="#a1a584" d="M95 28Q202-9 336 43L297 107Q190 141 78 96Z"/><path class="red-thread" d="M6 129C90 158 111 55 181 67S253 130 348 28"/><circle cx="181" cy="67" r="5" fill="#903e35"/><circle cx="348" cy="28" r="6" fill="none" stroke="#903e35"/><path d="M209 23v25m-12-12h24" stroke="#28261f"/></svg><p class="eyebrow">01 / FIELD NOTES</p><h1>Places I’ve been</h1><p>Hover or focus a pin to glimpse a place. Select it to unfold the postcard.</p></header>
+<header class="heading"><svg class="section-art" viewBox="0 0 300 175" aria-hidden="true">
+      <circle cx="211" cy="48" r="23" fill="#d5a378" opacity=".64"/>
+      <path d="M25 126Q54 90 87 97L140 47L193 108Q228 88 265 129Z" fill="#8da899" opacity=".75"/>
+      <path d="M32 124L87 98L141 49L194 108L225 101L261 129M111 79l26-9 13 9 13-3" fill="none" stroke="#566a60" stroke-width="2"/>
+      <path d="M29 133Q91 125 151 136T267 137M60 147q51-8 88 0m27 5 66-4m-130 12 60-2" fill="none" stroke="#789baf" stroke-width="3" opacity=".7"/>
+    </svg><p class="eyebrow">01 / FIELD NOTES</p><h1>Places I’ve been</h1><p>Drag the globe or use the arrows to turn it. Pick a pin or a city to open its postcard.</p></header>
 <section class="atlas" aria-label="Interactive travel map">
   <div class="atlas-top"><span>✳ POSTCARDS FROM ELSEWHERE</span><span id="place-count"></span></div>
   <div class="map-layout">
     <div class="map-frame">
-      <div id="map" class="map"><img src="assets/world.svg" width="900" height="400" alt="World map"><svg id="threads" viewBox="0 0 900 400" aria-hidden="true"></svg></div>
+      <div id="map" class="map globe">
+        <canvas id="globe-surface" width="400" height="400" aria-label="World globe"></canvas>
+      </div>
+      <div class="globe-controls" aria-label="Rotate globe">
+        <button class="paper-button" type="button" data-turn="-1" aria-label="Turn globe west">←</button>
+        <button class="paper-button" type="button" data-turn="1" aria-label="Turn globe east">→</button>
+      </div>
     </div>
     <aside id="preview" class="preview" aria-live="polite"></aside>
   </div>
