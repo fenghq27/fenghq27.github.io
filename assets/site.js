@@ -7,148 +7,171 @@ function element(tag, text, className) {
   return node;
 }
 
-function link(label, href, className) {
-  const anchor = element('a', label, className);
-  anchor.href = href;
-  return anchor;
-}
-
-function image(src, alt) {
+function picture(photo) {
   const img = element('img');
-  img.src = src;
-  img.alt = alt;
+  img.src = photo.src;
+  img.alt = photo.alt;
   return img;
 }
 
-function renderShelves() {
-  const cards = [
-    ['01 · The postcard rack', '✎', 'Thoughts & Ideas', 'Little observations and ideas, alongside pictures.', 'thoughts.html'],
-    ['02 · The photo box', '▣', 'Gallery', 'A handful of moments tucked into a shoebox.', 'gallery.html'],
-    ['03 · The keepsake drawer', '✦', 'Little Treasures', 'Favorite stories, songs, places, and pocket-sized finds.', 'treasures.html'],
-    ['04 · The craft table', '✂', 'Things I’ve Made', 'Paper scraps and experiments from the craft table.', 'made.html'],
-    ['05 · A little letter', '♡', 'About', 'A note from the person behind the counter.', 'about.html']
-  ];
-  const bell = document.querySelector('.bell');
-  const note = document.querySelector('#bell-note');
-  bell.hidden = false;
-  bell.addEventListener('click', () => {
-    note.hidden = !note.hidden;
-    bell.setAttribute('aria-expanded', String(!note.hidden));
-  });
-
-  const fortuneButton = document.querySelector('#fortune-button');
-  const fortune = document.querySelector('#fortune');
-  const slips = [
-    'Something small will make you smile today.',
-    'Take the scenic route when you have time.',
-    'Write down the good bit before you forget.',
-    'A quiet afternoon counts as a good day.'
-  ];
-  let nextSlip = Math.floor(Math.random() * slips.length);
-  fortuneButton.hidden = false;
-  fortuneButton.addEventListener('click', () => {
-    fortune.textContent = '✿ ' + slips[nextSlip];
-    nextSlip = (nextSlip + 1) % slips.length;
-  });
-
-  const shelf = document.querySelector('#shelf-links');
-  for (const [number, symbol, title, description, href] of cards) {
-    const card = link('', href, 'shelf-card');
-    const icon = element('span', symbol, 'shelf-icon');
-    icon.setAttribute('aria-hidden', 'true');
-    card.append(element('span', number, 'eyebrow'), icon, element('span', title, 'shelf-title'), element('p', description));
-    shelf.append(card);
-  }
+function photoFigure(photo) {
+  const figure = element('figure');
+  figure.append(picture(photo));
+  if (photo.caption) figure.append(element('figcaption', photo.caption));
+  return figure;
 }
 
-function renderThoughts() {
-  const rack = document.querySelector('#thoughts');
-  if (!thoughts.length) rack.append(element('p', 'A little space for thoughts, ideas, and the pictures that go with them.', 'note'));
-  for (const thought of thoughts) {
-    const card = element('article', '', 'note thought-card');
-    if (thought.image) {
-      const picture = image(thought.image.src, thought.image.alt);
-      picture.loading = 'lazy';
-      card.append(picture);
-    }
-    card.append(element('h2', thought.title));
-    for (const paragraph of thought.body) card.append(element('p', paragraph));
-    rack.append(card);
-  }
+function button(label, className) {
+  const control = element('button', label, className);
+  control.type = 'button';
+  return control;
 }
 
-function renderGallery() {
-  const filters = document.querySelector('#filters');
-  const grid = document.querySelector('#photos');
-  const status = document.querySelector('#photo-status');
-  const dialog = document.querySelector('#lightbox');
-  const enlarged = document.querySelector('#lightbox-image');
-  const title = document.querySelector('#lightbox-title');
-  const caption = document.querySelector('#lightbox-caption');
-  const close = dialog.querySelector('.close');
-  const categories = [...new Set(photos.map(photo => photo.category))];
+function renderMap() {
+  const map = document.querySelector('#map');
+  const threads = document.querySelector('#threads');
+  const preview = document.querySelector('#preview');
+  const list = document.querySelector('#places');
+  const dialog = document.querySelector('#place-dialog');
+  const content = document.querySelector('#place-content');
   let opener;
 
-  function showPhotos(category) {
-    const visible = category === null ? photos : photos.filter(photo => photo.category === category);
-    grid.replaceChildren();
-    for (const photo of visible) {
-      const card = element('button', '', 'polaroid');
-      card.type = 'button';
-      card.setAttribute('aria-label', 'Enlarge ' + photo.title);
-      const thumbnail = image(photo.src, photo.alt);
-      thumbnail.loading = 'lazy';
-      card.append(thumbnail, element('span', photo.title));
-      if (photo.sample) card.append(element('small', 'Sample image · ' + photo.category));
-      card.addEventListener('click', () => {
-        opener = card;
-        enlarged.src = photo.src;
-        enlarged.alt = photo.alt;
-        title.textContent = photo.title;
-        caption.textContent = photo.caption;
-        dialog.showModal();
-        close.focus();
-      });
-      grid.append(card);
-    }
-    status.textContent = visible.length + (visible.length === 1 ? ' photo shown' : ' photos shown');
-    if (!visible.length) grid.append(element('p', 'The photo box is empty.'));
+  document.querySelector('#place-count').textContent =
+    places.length + (places.length === 1 ? ' PIN' : ' PINS');
+
+  function showPreview(place) {
+    preview.replaceChildren();
+    const photo = place.photos?.[0];
+    if (photo) preview.append(photoFigure(photo));
+    preview.append(element('span', place.region + (place.sample ? ' · EXAMPLE' : ''), 'eyebrow'),
+      element('h2', place.city));
+    const open = button('Open postcard ↗', 'paper-button');
+    open.addEventListener('click', () => openPlace(place, open));
+    preview.append(open);
   }
 
-  for (const category of [null, ...categories]) {
-    const button = element('button', category ?? 'All photos');
-    button.type = 'button';
-    button.setAttribute('aria-pressed', String(category === null));
-    button.addEventListener('click', () => {
-      for (const filter of filters.children) filter.setAttribute('aria-pressed', String(filter === button));
-      showPhotos(category);
-    });
-    filters.append(button);
+  function openPlace(place, control) {
+    opener = control;
+    const heading = element('h2', place.city);
+    heading.id = 'place-title';
+    content.replaceChildren(element('p', place.region + (place.sample ? ' · EXAMPLE' : ''), 'eyebrow'), heading);
+    if (place.photos?.length) {
+      const photos = element('div', '', 'postcard-photos');
+      for (const photo of place.photos) photos.append(photoFigure(photo));
+      content.append(photos);
+    }
+    for (const story of place.stories ?? []) {
+      const article = element('article', '', 'story');
+      article.append(element('h3', story.title));
+      for (const paragraph of story.text.split('\n')) {
+        if (paragraph.trim()) article.append(element('p', paragraph));
+      }
+      content.append(article);
+    }
+    if (!place.photos?.length && !place.stories?.length) {
+      content.append(element('p', 'A postcard is still on its way.'));
+    }
+    dialog.showModal();
   }
-  close.addEventListener('click', () => dialog.close());
-  dialog.addEventListener('click', event => {
-    if (event.target === dialog) dialog.close();
-  });
+
+  const points = [];
+  for (const [index, place] of places.entries()) {
+    const x = (place.lon + 180) / 360;
+    const y = (90 - place.lat) / 180;
+    points.push([x * 900, y * 400]);
+    const pin = button(String(index + 1).padStart(2, '0'), 'pin');
+    pin.setAttribute('aria-label', 'Open postcard from ' + place.city);
+    pin.style.left = (x * 100) + '%';
+    pin.style.top = (y * 100) + '%';
+    const stop = button(place.city, 'paper-button');
+    for (const control of [pin, stop]) {
+      control.addEventListener('pointerenter', () => showPreview(place));
+      control.addEventListener('focus', () => showPreview(place));
+      control.addEventListener('click', () => openPlace(place, control));
+    }
+    map.append(pin);
+    list.append(stop);
+  }
+
+  const thread = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  for (let i = 1; i < points.length; i++) {
+    const [x, y] = points[i - 1];
+    const [endX, endY] = points[i];
+    if (Math.abs(x - endX) > 450) continue;
+    const height = Math.min(y, endY) - Math.min(70, Math.abs(x - endX) / 3);
+    thread.setAttribute('d', (thread.getAttribute('d') || '') +
+      `M${x} ${y} Q${(x + endX) / 2} ${height} ${endX} ${endY} `);
+  }
+  threads.append(thread);
+  if (places.length) showPreview(places[0]);
+  else preview.append(element('p', 'The map is waiting for its first pin.'));
   dialog.addEventListener('close', () => opener?.focus());
-  showPhotos(null);
 }
 
-function renderCollection(selector, items) {
-  const grid = document.querySelector(selector);
+function addFilters(container, allLabel, values, onChange) {
+  for (const value of [null, ...values]) {
+    const filter = button(value ?? allLabel, 'paper-button');
+    filter.setAttribute('aria-pressed', String(value === null));
+    filter.addEventListener('click', () => {
+      for (const other of container.children) {
+        other.setAttribute('aria-pressed', String(other === filter));
+      }
+      onChange(value);
+    });
+    container.append(filter);
+  }
+}
+
+function renderCards(grid, items, metadata) {
+  grid.replaceChildren();
+  if (!items.length) grid.append(element('p', 'Nothing tucked here yet.', 'empty'));
   for (const item of items) {
-    const card = element('article', '', 'collection');
-    card.append(element('p', item.category, 'eyebrow'), element('h2', item.title));
-    if (item.sample) card.append(element('span', 'Sample item', 'label'));
-    card.append(element('p', item.description));
-    if (item.url) card.append(link(item.linkLabel || 'More about ' + item.title, item.url));
+    const card = element('article', '', 'paper-card');
+    card.append(element('p', metadata(item) + (item.sample ? ' · EXAMPLE' : ''), 'eyebrow'));
+    if (item.image) card.append(picture(item.image));
+    card.append(element('h2', item.title));
+    if (item.creator) card.append(element('p', item.creator, 'byline'));
+    if (item.note) {
+      const details = element('details');
+      details.append(element('summary', 'Unfold note'), element('p', item.note));
+      card.append(details);
+    }
     grid.append(card);
   }
 }
 
+function renderKitchen() {
+  const grid = document.querySelector('#dishes');
+  const categories = [...new Set(dishes.map(dish => dish.category))];
+  function show(category) {
+    renderCards(grid, dishes.filter(dish => !category || dish.category === category), dish => dish.category);
+  }
+  addFilters(document.querySelector('#kitchen-filters'), 'All dishes', categories, show);
+  show(null);
+}
+
+function renderShelf() {
+  const grid = document.querySelector('#media');
+  let medium = null;
+  let status = null;
+  function show() {
+    const matches = shelf.filter(item => (!medium || medium === item.medium) && (!status || status === item.status));
+    renderCards(grid, matches, item => item.medium + ' / ' +
+      (item.status === 'Saved' ? 'Saved' : item.medium === 'Book' ? 'Read' : 'Watched'));
+  }
+  addFilters(document.querySelector('#medium-filters'), 'Books & movies', ['Book', 'Movie'], value => {
+    medium = value;
+    show();
+  });
+  addFilters(document.querySelector('#status-filters'), 'All statuses', ['Saved', 'Finished'], value => {
+    status = value;
+    show();
+  });
+  show();
+}
+
 switch (document.body.dataset.page) {
-  case 'index': renderShelves(); break;
-  case 'thoughts': renderThoughts(); break;
-  case 'gallery': renderGallery(); break;
-  case 'treasures': renderCollection('#treasures', treasures); break;
-  case 'made': renderCollection('#projects', projects); break;
+  case 'index': renderMap(); break;
+  case 'cooking': renderKitchen(); break;
+  case 'shelf': renderShelf(); break;
 }

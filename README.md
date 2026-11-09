@@ -1,60 +1,33 @@
 # Sophie’s World
 
-A static personal scrapbook for [fenghq27.github.io](https://fenghq27.github.io/). The site uses HTML, CSS, and vanilla JavaScript. It has no build step or external dependencies.
+Three static pages for places, cooking, and books and movies. Open `index.html` in your browser to preview. When you are ready to publish, commit your changes and push them to `main`. GitHub Pages serves the repository root at [fenghq27.github.io](https://fenghq27.github.io/).
 
-## Preview locally
+## Add your content
 
-Open `index.html` in a browser for a quick preview. To preview over HTTP, open Terminal in the project folder and run:
+Put your images in `assets/photos/` and reference them with paths such as `assets/photos/kyoto.jpg`. The starter records are examples. Remove `sample: true` when replacing them with your own records.
 
-```sh
-python3 -m http.server 8000 --bind 127.0.0.1
-```
+### Travel map
 
-Visit [http://127.0.0.1:8000/](http://127.0.0.1:8000/) and press Control-C in Terminal when finished.
-
-## Project structure
-
-| File or folder | Purpose |
-| --- | --- |
-| `index.html`, `thoughts.html`, `gallery.html`, `treasures.html`, `made.html`, `about.html` | The six main pages |
-| `data/thoughts.js` | Thoughts, ideas, and optional images |
-| `data/photos.js` | Gallery images, captions, alt text, and categories |
-| `data/collections.js` | Favorite things and creative projects |
-| `assets/photos/` | Replaceable illustrated placeholders and your future photos |
-| `assets/style.css` | Layout, typography, palette, and responsive styles |
-| `assets/site.js` | Rendering, shop interactions, filters, and photo lightbox |
-| `.nojekyll` | Serves the repository as plain static files on GitHub Pages |
-
-## Add a thought or idea
-
-Place your image in `assets/photos/` and add an object inside the brackets in `data/thoughts.js`. Put a comma between objects. Cards appear in the order you write them.
+In `data/travel.js`, add an object inside the array. Separate objects with commas. Use decimal coordinates, with negative longitude west of Greenwich and negative latitude south of the equator. The array order sets the pin numbers and the order in which the thread connects them.
 
 ```js
 {
-  title: 'A small idea',
-  body: ['Write your first paragraph here.', 'Add another paragraph if you like.'],
-  image: { src: 'assets/photos/your-image.jpg', alt: 'Describe the image here' }
+  id: 'kyoto',
+  city: 'Kyoto',
+  region: 'Japan',
+  lat: 35.01,
+  lon: 135.77,
+  photos: [{ src: 'assets/photos/kyoto.jpg', alt: 'Describe your photo', caption: 'Your caption' }],
+  stories: [{ title: 'An afternoon in Kyoto', text: 'Your story goes here.' }]
 }
 ```
 
-You can omit the image field for a text-only card.
+The first image previews on hover or keyboard focus. Clicking a pin or city opens all its photos and stories. Use `\n\n` in a story string for a paragraph break. Both arrays can be empty. The map outlines are from [Natural Earth](https://www.naturalearthdata.com/downloads/110m-physical-vectors/110m-land/).
 
-## Upload or replace photos
+### Cooking
 
-Put your JPG, WebP, or PNG files in `assets/photos/`. You can also use **Add file → Upload files** inside that folder on GitHub. Copy an object in `data/photos.js`, update `src` to match the filename exactly, and fill in `title`, `alt`, `category`, and `caption`. The category filters update automatically. Remove `sample: true` for real photos.
+Copy an object in `data/cooking.js` and change its title, category, and note. Add an optional `image` with `src` and `alt`. Category filters update from the records.
 
-Use short, descriptive alt text and resize large photos before uploading. Consider removing GPS metadata from personal photos before publishing.
+### Books and movies
 
-## Customize the scrapbook
-
-- Edit the welcome text in `index.html` and the letter in `about.html`.
-- Edit `data/collections.js` to add favorites and projects. Add a `url` and optional `linkLabel` for items you want to link.
-- Edit the color and font variables at the top of `assets/style.css` to change the palette and typography.
-- The home page uses `assets/stationery-window.jpg`. To replace the image, update its path and alt text in `index.html`. The original storefront illustration is listed separately in `data/collections.js`.
-
-## Publish on GitHub Pages
-
-1. Create or open the public repository `fenghq27/fenghq27.github.io`.
-2. Commit and push the site files to the repository root on `main`. If the repository already has commits, clone it first and copy these site files into that clone. Include `.nojekyll` and preserve the `assets/` and `data/` folders.
-3. In the repository, open **Settings → Pages**. Under **Build and deployment**, choose **Deploy from a branch**, select **main** and **/ (root)**, then save.
-4. Once GitHub reports the deployment is live, open [Sophie’s World](https://fenghq27.github.io/). Push subsequent edits to the same branch to update the site.
+Copy an object in `data/shelf.js`. Use `Book` or `Movie` for its medium and `Saved` or `Finished` for its status. Finished books display as Read and finished movies as Watched. Add your thoughts in the note field.

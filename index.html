@@ -3,48 +3,33 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Sophie’s World, a little scrapbook of ordinary days and favorite things.">
-<title>Sophie’s World</title>
+<meta name="description" content="Sophie’s World, a collection of places, dishes and stories.">
+<title>Travel map · Sophie’s World</title>
 <link rel="icon" href="assets/stamp.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/style.css">
+<script defer src="data/travel.js"></script>
 <script defer src="assets/site.js"></script>
 </head>
 <body data-page="index">
-<a href="#main" class="skip">Skip to content</a>
-<div class="awning" aria-hidden="true"></div>
-<header class="masthead"><div class="masthead-inner"><a class="wordmark" href="index.html"><span aria-hidden="true">✿</span> Sophie’s World</a><nav aria-label="Main navigation"><a href="index.html" aria-current="page">Home</a><a href="thoughts.html">Thoughts &amp; Ideas</a><a href="gallery.html">Gallery</a><a href="treasures.html">Little Treasures</a><a href="made.html">Things I’ve Made</a><a href="about.html">About</a></nav></div></header>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead"><div class="masthead-inner"><a class="wordmark" href="index.html"><span aria-hidden="true">✿</span> Sophie’s World</a><nav aria-label="Main navigation"><a href="index.html" aria-current="page">01 Travel map</a><a href="cooking.html">02 Cooking</a><a href="shelf.html">03 Books &amp; movies</a></nav></div></header>
 <main id="main">
-<section class="shop" aria-labelledby="shop-name">
-  <div class="shop-sign">
-    <p class="eyebrow">✦ &nbsp; THE LITTLE STATIONERY SHOP &nbsp; ✦</p>
-    <h1 id="shop-name">Sophie’s World</h1>
-    <p>Come in, stay a while.</p>
-  </div>
-  <div class="shop-window">
-    <img class="window-scene" src="assets/stationery-window.jpg" width="1500" height="1000" alt="Painted stationery shop window with fabric curtains, postcards, and a small ceramic cat">
-    <nav class="window-links" aria-label="Shop window display">
-      <a href="thoughts.html"><span aria-hidden="true">01</span> Postcards <b aria-hidden="true">↗</b></a>
-      <a href="gallery.html"><span aria-hidden="true">02</span> Photo box <b aria-hidden="true">↗</b></a>
-      <a href="treasures.html"><span aria-hidden="true">03</span> Keepsakes <b aria-hidden="true">↗</b></a>
-    </nav>
-  </div>
-  <div class="shop-counter">
-    <p>A scrapbook of ordinary days, favorite things, and memories I’d like to keep.</p>
-    <div class="counter-actions">
-      <button class="bell" type="button" aria-controls="bell-note" aria-expanded="false" hidden><span aria-hidden="true">♢</span> Ring the bell</button>
-      <button class="bell" id="fortune-button" type="button" hidden><span aria-hidden="true">✿</span> Draw a paper fortune</button>
-      <a href="#shelves">Browse all shelves ↓</a>
+<header class="heading"><p class="eyebrow">01 / FIELD NOTES</p><h1>Places I’ve been</h1><p>A map of little moments. Follow a thread, lift a photograph, stay a while.</p></header>
+<section class="atlas" aria-label="Interactive travel map">
+  <div class="atlas-top"><span>✳ POSTCARDS FROM ELSEWHERE</span><span id="place-count"></span></div>
+  <div class="map-layout">
+    <div class="map-frame">
+      <div id="map" class="map"><img src="assets/world.svg" width="900" height="400" alt="World map"><svg id="threads" viewBox="0 0 900 400" aria-hidden="true"></svg></div>
     </div>
-    <p id="bell-note" class="bell-note" hidden>✧ Ding! I’m glad you found this little corner. Make yourself at home. — Sophie</p>
-    <p id="fortune" class="bell-note" role="status"></p>
-    <details class="shop-drawer"><summary>Open the stationery drawer</summary>
-      <p>Tucked behind the postcards are a few things made by hand.</p>
-      <a href="made.html">Visit the craft table →</a>
-    </details>
+    <aside id="preview" class="preview" aria-live="polite"></aside>
   </div>
+  <div id="places" class="places" aria-label="Places on the map"></div>
 </section>
-<section id="shelves" class="shelves" aria-labelledby="shelf-title"><div class="section-heading"><p class="eyebrow">THE SHOP SHELVES</p><h2 id="shelf-title">A few things to browse</h2><p class="handwritten">Pick something off the shelf…</p></div><div class="shelf-grid" id="shelf-links"></div></section></main>
-<footer><a class="wordmark" href="index.html"><span aria-hidden="true">✿</span> Sophie’s World</a><p class="handwritten">Thanks for stopping by.</p><small>A little corner of the internet, kept with care.</small></footer>
-<noscript><p class="noscript">Enable JavaScript to browse thoughts, photos, and collections.</p></noscript>
+<dialog id="place-dialog" aria-labelledby="place-title">
+  <div class="dialog-paper"><form method="dialog"><button class="close" aria-label="Close postcard">×</button></form><div id="place-content"></div></div>
+</dialog>
+<noscript><p>Enable JavaScript to explore the collection.</p></noscript>
+</main>
+<footer><span>✿ SOPHIE’S WORLD</span><span>Little things worth keeping.</span></footer>
 </body>
 </html>
