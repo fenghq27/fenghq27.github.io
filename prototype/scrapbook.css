@@ -1,0 +1,42 @@
+:root {
+  --ink: #24221c;
+  --paper: #eee7d5;
+  --mono: 'American Typewriter', 'Courier New', monospace;
+}
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--ink); background: var(--paper) url('../assets/paper.svg'); }
+a { color: inherit; }
+:focus-visible { outline: 2px solid #713832; outline-offset: 5px; }
+.skip { position: absolute; top: .5rem; left: .5rem; transform: translateY(-200%); background: var(--paper); padding: .5rem; z-index: 3; }
+.skip:focus { transform: none; }
+.masthead, footer { width: min(1100px, calc(100% - 2rem)); margin: auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .7rem 1rem; padding: 1rem 0; font: .75rem var(--mono); letter-spacing: .08em; }
+.masthead { border-bottom: 1px solid #9b907b; }
+nav { display: flex; gap: 1rem; }
+nav a { padding: .4rem 0; text-decoration: none; }
+nav a:hover { text-decoration: underline; text-underline-offset: .25em; }
+.scrapbook { width: min(1100px, calc(100% - 2rem)); margin: auto; position: relative; display: flow-root; }
+.title-slip { position: absolute; top: 12%; left: 2%; z-index: 1; pointer-events: none; }
+.index-label, .margin-note { font: .75rem/1.45 var(--mono); letter-spacing: .08em; }
+h1 { font: 400 clamp(2.7rem, 8vw, 7rem)/.84 Georgia, serif; letter-spacing: -.075em; margin: .25em 0; }
+h1 em { font-weight: 400; }
+.composition { width: min(79%, 820px); height: auto; display: block; margin: 1.3rem 0 1rem auto; overflow: visible; }
+.shape { cursor: pointer; }
+.shape text { font: bold 17px var(--mono); fill: var(--ink); letter-spacing: .03em; }
+.shape .form { transition: opacity .25s, transform .25s; transform-origin: center; transform-box: fill-box; }
+.shape:hover .form, .shape:focus-visible .form { opacity: .73; scale: 1.025; }
+.shape:hover text, .shape:focus-visible text { text-decoration: underline; }
+.margin-note { position: absolute; bottom: 11%; left: 3%; border-left: 1px solid #897f69; padding-left: .65rem; }
+footer { border-top: 1px solid #9b907b; }
+@media (max-width: 650px) {
+  .title-slip { position: relative; inset: auto; margin: 2rem 0 0 4%; }
+  h1 { font-size: clamp(3.4rem, 14vw, 5.5rem); }
+  .composition { width: 100%; margin: -.5rem 0 .5rem; }
+  .margin-note { position: static; margin: 0 0 1.5rem 4%; }
+  .shape text { font-size: 21px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shape .form { transition: none; }
+  .shape:hover .form, .shape:focus-visible .form { scale: none; }
+}
+.index-about { width: fit-content; max-width: 32ch; margin: 0 0 1.25rem 3%; font: .8rem/1.55 var(--mono); }
+.index-about summary { cursor: pointer; }

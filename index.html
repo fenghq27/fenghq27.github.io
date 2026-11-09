@@ -3,30 +3,46 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Sophie’s World, a collection of places, dishes and stories.">
 <title>Sophie’s World</title>
-<link rel="icon" href="assets/stamp.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="prototype/scrapbook.css">
 </head>
-<body data-page="index">
-<a class="skip" href="#main">Skip to content</a>
-<header class="masthead"><div class="masthead-inner"><a class="wordmark" href="index.html"><span aria-hidden="true">✿</span> Sophie’s World</a><nav aria-label="Main navigation"><a href="index.html" aria-current="page">Index</a><a href="travel.html">Travel</a><a href="cooking.html">Kitchen</a><a href="shelf.html">Library</a></nav></div></header>
-<main id="main" class="entrance">
-<section class="opening" aria-labelledby="entrance-title">
-  <div class="opening-copy"><p class="eyebrow">A PERSONAL ART JOURNAL / VOL. 01</p>
-  <h1 id="entrance-title">Sophie’s<br><i>World</i></h1>
-  <p>Places, things made in the kitchen, and stories I keep coming back to.</p></div>
-  <a class="entrance-map" href="travel.html"><img src="assets/world.svg" alt="" width="900" height="400"><span>01 / Follow a thread ↗</span></a>
-  <img class="entrance-photo" src="assets/photos/train.svg" alt="" width="480" height="360">
-  <svg class="entrance-thread" viewBox="0 0 800 300" preserveAspectRatio="none" aria-hidden="true"><path d="M0 260C180 300 135 70 370 100S635 215 800 0"/></svg>
-</section>
-<section class="room-index" aria-label="Exhibition index">
-  <a href="travel.html"><small>01</small><span>Travel</span><em>Postcards from elsewhere</em><b aria-hidden="true">↗</b></a>
-  <a href="cooking.html"><small>02</small><span>Kitchen</span><em>Notes from the stove</em><b aria-hidden="true">↗</b></a>
-  <a href="shelf.html"><small>03</small><span>Library</span><em>Books and films</em><b aria-hidden="true">↗</b></a>
-</section>
-<section class="about-note" id="about"><h2>About</h2><p>I’m Sophie. This is a place for things I want to remember, from a meal at home to a view out a train window.</p></section>
+<body>
+<a class="skip" href="#scrapbook">Skip to scrapbook</a>
+<header class="masthead">
+  <span class="edition"><span aria-hidden="true">✳</span> PERSONAL ARCHIVE <small>VOL. 01</small></span>
+  <nav aria-label="Main navigation">
+    <a href="travel.html">Travel</a>
+    <a href="cooking.html">Kitchen</a>
+    <a href="shelf.html">Library</a>
+  </nav>
+</header>
+<main id="scrapbook" class="scrapbook">
+  <div class="title-slip">
+    <p class="index-label">A PERSONAL INDEX / 01</p>
+    <h1>Sophie’s<br><em>World</em></h1>
+  </div>
+  <svg class="composition" viewBox="0 0 760 700" aria-labelledby="art-title">
+    <title id="art-title">Three shapes link to Travel, Kitchen, and Library</title>
+    <defs>
+      <filter id="soft-edge" x="-15%" y="-15%" width="130%" height="130%"><feGaussianBlur stdDeviation="12"/></filter>
+    </defs>
+    <a href="travel.html" class="shape travel" aria-label="Explore Travel">
+      <path class="form" d="M136 367C104 256 119 116 231 69C398-3 600 85 626 233Q634 265 618 281Z" fill="#cf625e" filter="url(#soft-edge)"/>
+      <text x="566" y="172">01 / TRAVEL</text>
+    </a>
+    <a href="cooking.html" class="shape kitchen" aria-label="Explore Kitchen">
+      <ellipse class="form" cx="424" cy="248" rx="88" ry="132" fill="#92916a" transform="rotate(7 424 248)"/>
+      <text x="403" y="255" text-anchor="middle">02 / KITCHEN</text>
+    </a>
+    <a href="shelf.html" class="shape library" aria-label="Explore Library">
+      <rect x="193" y="379" width="345" height="281" fill="transparent"/>
+      <path class="form" d="M222 631L338 391L446 447L482 604L358 647L235 518L422 461L405 580L243 476L306 418L505 548L387 614L277 600L360 496" fill="none" stroke="#24221c" stroke-width="14" stroke-linejoin="miter"/>
+      <text x="521" y="604">03 / LIBRARY</text>
+    </a>
+  </svg>
+  <p class="margin-note">Places, meals,<br>and stories.</p>
+<details class="index-about"><summary>About Sophie</summary><p>A collection of places, things made in the kitchen, and stories I keep coming back to.</p></details>
 </main>
-<footer><span>✿ SOPHIE’S WORLD</span><span>Little things worth keeping.</span></footer>
+<footer><span>✳ SOPHIE’S WORLD</span><span>PERSONAL INDEX / 01</span></footer>
 </body>
 </html>

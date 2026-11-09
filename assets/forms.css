@@ -1,0 +1,29 @@
+/* Each section gets its own composition on the same paper stock. */
+:root { --paper: #eee7d5; --ink: #24221c; --brick: #903e35; --sage: #4c533c; --line: #9b907b; }
+body { background-color: var(--paper); }
+.heading { position: relative; isolation: isolate; }
+body[data-page] .heading { max-width: none; margin-left: 0; min-height: clamp(200px, 25vw, 310px); padding-right: min(36%, 360px); }
+body[data-page] .heading h1 { font: 400 clamp(2.5rem, 7vw, 6rem)/.88 Georgia, serif; letter-spacing: -.075em; }
+.heading .section-art { position: absolute; z-index: -1; right: 0; bottom: 10%; width: min(44%, 460px); }
+.red-thread { fill: none; stroke: var(--brick); stroke-width: 1.25; vector-effect: non-scaling-stroke; }
+body[data-page="travel"] .heading h1 { font-style: italic; }
+#threads { stroke-dasharray: none; }
+.pin { background: var(--brick); border-color: var(--paper); }
+.preview { box-shadow: none; border-top: 2px solid var(--brick); }
+body[data-page="cooking"] .heading { padding-left: min(8vw, 100px); }
+.notebook { position: relative; }
+.notebook::before { content: ''; position: absolute; z-index: -1; left: 49%; top: 1rem; bottom: 1rem; border-left: 1px solid var(--brick); transform: rotate(6deg); opacity: .5; }
+.dish { position: relative; background: var(--paper); }
+.dish-label { position: relative; padding: .5rem; }
+.dish-label::before { content: ''; position: absolute; width: 48px; height: 23px; border-radius: 45% 55% 35% 65%; background: #d4ae68; top: -14px; right: 0; transform: rotate(-12deg); pointer-events: none; }
+.dish:nth-of-type(even) .dish-label::before { background: #a1a584; transform: rotate(19deg); }
+body[data-page="shelf"] .heading h1 { letter-spacing: -.065em; }
+.catalog-reading { position: relative; padding-top: 1rem; border-top: 2px solid var(--ink); }
+.catalog-reading::before { content: ''; position: absolute; width: 3rem; border-top: 1px solid var(--brick); right: 0; top: -.55rem; transform: rotate(-17deg); }
+.catalog-cover { clip-path: polygon(0 0, 95% 3%, 100% 100%, 2% 97%); }
+.catalog-cover:has(img) { clip-path: none; }
+@media (max-width: 650px) {
+  body[data-page] .heading { padding-right: 0; min-height: 0; padding-bottom: 0; }
+  .heading .section-art { position: static; display: block; margin: 0 0 -.6rem auto; width: min(55%, 225px); }
+  .notebook::before { transform: none; }
+}
