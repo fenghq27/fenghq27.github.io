@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 480" role="img">
+<defs>
+  <pattern id="brick" width="54" height="26" patternUnits="userSpaceOnUse"><path d="M0 0H54M0 13H54M27 0V13M0 13V26" fill="none" stroke="#bb7e64" opacity=".5"/></pattern>
+  <pattern id="sidewalk" width="58" height="24" patternUnits="userSpaceOnUse"><path d="M0 0H58M29 0V24" fill="none" stroke="#a88b70" opacity=".5"/></pattern>
+  <pattern id="stripe" y="150" width="54" height="80" patternUnits="userSpaceOnUse"><path fill="#f8e8c6" d="M0 0h54v61q-13.5 15-27 0Q13.5 76 0 61Z"/><path fill="#ad5143" d="M0 0h27v61Q13.5 76 0 61Z"/></pattern>
+  <linearGradient id="glass" x2=".8" y2="1"><stop stop-color="#ffdd9c"/><stop offset="1" stop-color="#a97555"/></linearGradient>
+  <filter id="texture"><feTurbulence type="fractalNoise" baseFrequency=".63" numOctaves="3" stitchTiles="stitch"/></filter>
+</defs>
+<path fill="#d2b29a" d="M0 0h660v480H0z"/>
+<path fill="#dfb49a" d="M0 0h660v398H0z"/><path fill="url(#brick)" d="M0 0h660v400H0z"/>
+<path fill="#bfa184" d="M0 399h660v81H0z"/><path fill="url(#sidewalk)" d="M0 407h660v73H0z"/>
+<path fill="#a06f57" d="M41 54h579v356H41z"/><path fill="#6f4738" d="M65 67h530v343H65z"/>
+<path fill="#f1d9a9" stroke="#53352c" stroke-width="5" d="M93 68h474v79H93z"/>
+<path fill="none" stroke="#a76649" stroke-width="1.5" d="M104 78h452v59H104z"/>
+<text x="330" y="112" font-family="Georgia,serif" font-size="33" text-anchor="middle" fill="#573225" letter-spacing="1">SOPHIE’S WORLD</text>
+<text x="330" y="129" font-family="Georgia,serif" font-size="8" text-anchor="middle" fill="#794839" letter-spacing="3">A SHOP FULL OF LITTLE THINGS</text>
+<path fill="#a25e49" d="M85 166h490v238H85z"/>
+<path fill="#e1be87" d="M101 190h147v161H101zM407 190h151v161H407z"/>
+<path fill="url(#glass)" stroke="#684333" stroke-width="6" d="M107 197h135v147H107zM413 197h139v147H413z"/>
+<g fill="#744631"><path d="M109 260h133v5H109zm0 51h133v5H109zm305-51h137v5H414zm0 51h137v5H414z"/></g>
+<g fill="#8b493d"><path d="M119 235h11v25h-11zm26-7h10v32h-10zm278 0h13v32h-13zm74 7h13v25h-13z"/></g>
+<g fill="#657054"><path d="M131 231h12v29h-12zm28 5h10v24h-10zm287-12h11v36h-11zm66 14h13v22h-13z"/></g>
+<g fill="#f4e2ad"><path d="M176 238h34v22h-34zm-52 47h39v26h-39zm64 7h32v19h-32zm248-10h38v29h-38zm58 11h36v18h-36z"/></g>
+<path stroke="#e6cda0" stroke-width="4" opacity=".8" d="M174 197v147m308-147v147M108 274h133m172 0h138"/>
+<path fill="#704c3d" d="M91 350h166v10H91zm306 0h168v10H397z"/>
+<path fill="#52614b" stroke="#51372d" stroke-width="5" d="M268 181h126v228H268z"/>
+<path fill="url(#glass)" stroke="#d8b886" stroke-width="4" d="M282 199h98v116h-98z"/>
+<path fill="#68795d" stroke="#394639" stroke-width="3" d="M283 339h96v56h-96z"/>
+<path fill="none" stroke="#6b4b36" d="m309 241 22-13 23 13"/>
+<rect x="303" y="240" width="56" height="24" rx="1" fill="#f7e8c2" stroke="#785740"/>
+<text x="331" y="256" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#7d4033">COME IN</text>
+<circle cx="371" cy="325" r="4" fill="#e1bd74"/>
+<path d="M86 150h488l27 54H59z" fill="#f6deb1" stroke="#80513d" stroke-width="2"/>
+<path d="M86 150h488l27 54H59z" fill="url(#stripe)"/>
+<path d="M59 202h542v22H59z" fill="url(#stripe)"/>
+<g stroke="#594d35" stroke-width="3" fill="none"><path d="M89 390q0-41-20-63m20 47q5-30 24-42m-24 48q-11-19-29-21m512 31q1-39 22-67m-21 54q-10-25-28-36m30 44q13-20 30-20"/></g>
+<g fill="#6d7954"><ellipse cx="69" cy="329" rx="8" ry="16" transform="rotate(-37 69 329)"/><ellipse cx="108" cy="340" rx="8" ry="16" transform="rotate(43 108 340)"/><ellipse cx="63" cy="359" rx="13" ry="7"/><ellipse cx="594" cy="331" rx="8" ry="16" transform="rotate(38 594 331)"/><ellipse cx="549" cy="345" rx="8" ry="16" transform="rotate(-44 549 345)"/><ellipse cx="599" cy="365" rx="13" ry="7"/></g>
+<path fill="#a55840" stroke="#794938" stroke-width="2" d="M68 385h44l-7 37H75zm484 0h44l-7 37h-30z"/>
+<path fill="#795641" d="M266 410h130l12 16H254z"/>
+<path fill="#a1634b" d="M261 436h141l15 19H247z"/>
+<path d="M273 442h118l5 7H268z" fill="none" stroke="#e4b58a"/>
+<path d="M0 0h660v480H0z" opacity=".13" filter="url(#texture)"/>
+</svg>
