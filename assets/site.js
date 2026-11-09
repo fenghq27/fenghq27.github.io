@@ -57,7 +57,14 @@ function renderMap() {
     content.replaceChildren(element('p', place.region + (place.sample ? ' · EXAMPLE' : ''), 'eyebrow'), heading);
     if (place.photos?.length) {
       const photos = element('div', '', 'postcard-photos');
-      for (const photo of place.photos) photos.append(photoFigure(photo));
+      for (const photo of place.photos) {
+        const figure = photoFigure(photo);
+        const detail = element('details', '', 'photo-note');
+        const summary = element('summary');
+        summary.append(figure, element('span', 'Look closer ↗', 'eyebrow'));
+        detail.append(summary, element('p', photo.note || photo.caption || photo.alt));
+        photos.append(detail);
+      }
       content.append(photos);
     }
     for (const story of place.stories ?? []) {
@@ -122,44 +129,74 @@ function addFilters(container, allLabel, values, onChange) {
   }
 }
 
-function renderCards(grid, items, metadata) {
-  grid.replaceChildren();
-  if (!items.length) grid.append(element('p', 'Nothing tucked here yet.', 'empty'));
-  for (const item of items) {
-    const card = element('article', '', 'paper-card');
-    card.append(element('p', metadata(item) + (item.sample ? ' · EXAMPLE' : ''), 'eyebrow'));
-    if (item.image) card.append(picture(item.image));
-    card.append(element('h2', item.title));
-    if (item.creator) card.append(element('p', item.creator, 'byline'));
-    if (item.note) {
-      const details = element('details');
-      details.append(element('summary', 'Unfold note'), element('p', item.note));
-      card.append(details);
-    }
-    grid.append(card);
-  }
-}
-
 function renderKitchen() {
-  const grid = document.querySelector('#dishes');
+  const notebook = document.querySelector('#dishes');
   const categories = [...new Set(dishes.map(dish => dish.category))];
   function show(category) {
-    renderCards(grid, dishes.filter(dish => !category || dish.category === category), dish => dish.category);
+    notebook.replaceChildren();
+    const matches = dishes.filter(dish => !category || dish.category === category);
+    if (!matches.length) notebook.append(element('p', 'The notebook is still open to a blank page.'));
+    for (const [index, dish] of matches.entries()) {
+      const entry = element('details', '', 'dish');
+      const summary = element('summary');
+      const label = element('div', '', 'dish-label');
+      label.append(element('p', `0${index + 1} / ${dish.category}` + (dish.sample ? ' · EXAMPLE' : ''), 'eyebrow'),
+        element('h2', dish.title), element('span', 'Open notebook ↘', 'annotation'));
+      if (dish.image) summary.append(photoFigure(dish.image));
+      summary.append(label);
+      const notes = element('div', '', 'dish-notes');
+      if (dish.ingredients?.length) {
+        const ingredients = element('ul');
+        for (const ingredient of dish.ingredients) ingredients.append(element('li', ingredient));
+        notes.append(element('h3', 'On the counter'), ingredients);
+      }
+      if (dish.note) notes.append(element('p', dish.note));
+      entry.append(summary, notes);
+      notebook.append(entry);
+    }
   }
   addFilters(document.querySelector('#kitchen-filters'), 'All dishes', categories, show);
   show(null);
 }
 
 function renderShelf() {
-  const grid = document.querySelector('#media');
+  const catalog = document.querySelector('#media');
   let medium = null;
   let status = null;
+  let selected;
   function show() {
     const matches = shelf.filter(item => (!medium || medium === item.medium) && (!status || status === item.status));
-    renderCards(grid, matches, item => item.medium + ' / ' +
-      (item.status === 'Saved' ? 'Saved' : item.medium === 'Book' ? 'Read' : 'Watched'));
+    const index = element('div', '', 'catalog-index');
+    const reading = element('article', '', 'catalog-reading');
+    catalog.replaceChildren(index, reading);
+    const controls = [];
+    function select(item) {
+      selected = item;
+      for (const [record, control] of controls) control.setAttribute('aria-pressed', String(record === item));
+      const cover = element('div', '', 'catalog-cover');
+      cover.dataset.medium = item.medium;
+      if (item.image) cover.append(picture(item.image));
+      else cover.append(element('span', item.medium), element('strong', item.title), element('span', item.creator));
+      const copy = element('div', '', 'catalog-copy');
+      copy.append(element('p', item.medium + ' / ' + item.status + (item.sample ? ' · EXAMPLE' : ''), 'eyebrow'),
+        element('h2', item.title));
+      if (item.creator) copy.append(element('p', item.creator, 'byline'));
+      if (item.rating != null) copy.append(element('p', item.rating + ' / 5', 'eyebrow'));
+      if (item.note) copy.append(element('p', item.note, 'annotation'));
+      reading.replaceChildren(cover, copy);
+    }
+    for (const item of matches) {
+      const control = button('', 'catalog-entry');
+      const label = item.status === 'Saved' ? 'Planned' : item.medium === 'Book' ? 'Read' : 'Watched';
+      control.append(element('span', item.title), element('small', label));
+      control.addEventListener('click', () => select(item));
+      controls.push([item, control]);
+      index.append(control);
+    }
+    if (matches.length) select(matches.includes(selected) ? selected : matches[0]);
+    else index.append(element('p', 'Nothing filed under these filters.'));
   }
-  addFilters(document.querySelector('#medium-filters'), 'Books & movies', ['Book', 'Movie'], value => {
+  addFilters(document.querySelector('#medium-filters'), 'Books & films', ['Book', 'Movie'], value => {
     medium = value;
     show();
   });
@@ -171,7 +208,7 @@ function renderShelf() {
 }
 
 switch (document.body.dataset.page) {
-  case 'index': renderMap(); break;
+  case 'travel': renderMap(); break;
   case 'cooking': renderKitchen(); break;
   case 'shelf': renderShelf(); break;
 }
